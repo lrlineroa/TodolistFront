@@ -17,6 +17,7 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { HttpClientModule  } from "@angular/common/http";
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ListServiceProvider } from '../providers/list-service/list-service';
+import { TaskServiceProvider } from '../providers/task-service/task-service';
 @NgModule({
   declarations: [
     MyApp,LoginPage,
@@ -45,7 +46,8 @@ MyTasksPage,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
-    ListServiceProvider
+    ListServiceProvider,
+    TaskServiceProvider
   ]
 })
 export class AppModule {}

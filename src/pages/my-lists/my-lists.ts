@@ -27,7 +27,7 @@ export class MyListsPage {
     console.log('ionViewDidLoad MyListsPage');
     this.listServiceProvider.getData('lists').subscribe(
       (data) => {
-        console.log("listas " + data);
+        console.log("listas " + JSON.stringify(data));
         for (let i in data) {
           this.items.push(data[i]);
         }
@@ -94,10 +94,8 @@ export class MyListsPage {
     }).present();
   }
   onDeletelist(item) {
-
     let id = item["id"];
     this.listServiceProvider.deleteData("lists/" + id).subscribe(() => this.items.splice(this.items.indexOf(item), 1));
-
   }
 
 }

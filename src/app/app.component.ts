@@ -23,7 +23,7 @@ export class MyApp {
     // private alertCtrl: AlertController,
     public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
-    localStorage.setItem("apiUrl","http://localhost:3000/")
+    localStorage.setItem("apiUrl","https://mytodolistapi.herokuapp.com/")
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },

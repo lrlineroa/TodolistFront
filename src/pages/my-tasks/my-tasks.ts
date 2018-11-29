@@ -13,13 +13,25 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'my-tasks.html',
 })
 export class MyTasksPage {
-  listName:any;
+  public items: Array<{ id: number, name: string }> = [];
+  listName: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.listName = navParams.get('item').name;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyTasksPage');
+  }
+
+  onEnterTask(taskName) {
+    alert("oo que chevere vamos a ingresar " + taskName);
+  }
+
+  onEditTask(task) {
+
+  }
+  onDeleteTask(task) {
+
   }
 
 }
