@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -20,7 +20,7 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(
-    // private alertCtrl: AlertController,
+    private menu: MenuController,
     public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
     localStorage.setItem("apiUrl","https://mytodolistapi.herokuapp.com/")
@@ -68,6 +68,7 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
   logOut(){
+    this.menu.close();
     localStorage.removeItem("user")
     localStorage.removeItem("jwt")
     this.nav.setRoot(LoginPage)

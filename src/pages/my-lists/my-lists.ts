@@ -93,9 +93,29 @@ export class MyListsPage {
       
     }).present();
   }
-  onDeletelist(item) {
-    let id = item["id"];
-    this.listServiceProvider.deleteData("lists/" + id).subscribe(() => this.items.splice(this.items.indexOf(item), 1));
+  onDeleteList(item) {
+    this.alertCtrl.create({
+      title: "Aviso",
+      subTitle: "Estás Seguro para eliminar ?? ",
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: data => {
+            let id = item["id"];
+            this.listServiceProvider.deleteData("lists/" + id).subscribe(() => this.items.splice(this.items.indexOf(item), 1));
+            }
+        }
+      ]
+      
+    }).present();
+    
   }
-
+   
 }
