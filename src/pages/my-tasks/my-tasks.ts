@@ -100,6 +100,7 @@ export class MyTasksPage {
         {
           text: 'Aceptar',
           handler: data => {
+            
             let id = task["id"];
           this.taskServiceProvider.deleteData("tasks/" + id,this.list.id).subscribe(() => this.items.splice(this.items.indexOf(task), 1));
           }
