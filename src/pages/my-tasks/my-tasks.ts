@@ -15,11 +15,13 @@ import { TaskServiceProvider } from '../../providers/task-service/task-service';
 })
 export class MyTasksPage {
   public items: Array<{ id: number, name: string,checked:number }> = [];
+  public states: Array<String>=[];
   list: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private taskServiceProvider: TaskServiceProvider,
     private alertCtrl: AlertController) {
     this.list = navParams.get('item');
+    this.states=['Uncompleted','Completed','Suspended']
   }
 
   ionViewDidLoad() {
@@ -100,7 +102,7 @@ export class MyTasksPage {
         {
           text: 'Aceptar',
           handler: data => {
-           let id = task["id"];
+          let id = task["id"];
           this.taskServiceProvider.deleteData("tasks/" + id,this.list.id).subscribe(() => this.items.splice(this.items.indexOf(task), 1));
           }
         }
@@ -110,7 +112,15 @@ export class MyTasksPage {
   }
 
   itemTapped(event, task) {
-    alert("enviar estado checked? :"+task.checked)
+    let state= task.checked?'Completed':'Uncompleted';
+    let userId=JSON.parse(localStorage.getItem("user"))["id"];
+    let stateIdInDb=this.states.indexOf(state)+1 // al id se le suma 1 porque los ids de la base de datos comienzan en 1
+    this.taskServiceProvider.sendNewState(userId,task.id,stateIdInDb).subscribe(
+      data=>{alert(data)},
+      error=>{
+        alert(error)
+      }
+      );
   }
 
 }

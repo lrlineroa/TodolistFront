@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class TaskServiceProvider {
+  
   jwt=localStorage.getItem("jwt");
   apiUrl=localStorage.getItem("apiUrl");
   constructor(public http: HttpClient) {
@@ -76,6 +77,22 @@ export class TaskServiceProvider {
     const options = { headers: headers };
 
     return this.http.delete(this.apiUrl + "lists/" +listId + "/" + uri, options);
+  }
+
+  sendNewState(userId,taskId,stateId): any {
+    let headers = new HttpHeaders(
+      {
+        'Content-Type': 'application/json'
+        ,
+        'Authorization': 'Bearer ' + this.jwt
+      });
+
+    const options = { headers: headers };
+
+    let json = JSON.stringify({});
+    console.log(json);
+    return this.http.post(this.apiUrl + "users/" + userId+ "/" +"tasks/" + taskId+"states/" + stateId, json, options);
+
   }
 
 }
