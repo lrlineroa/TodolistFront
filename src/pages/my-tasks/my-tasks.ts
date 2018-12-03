@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { TaskServiceProvider } from '../../providers/task-service/task-service';
 
 /**
@@ -17,9 +17,11 @@ export class MyTasksPage {
   public items: Array<{ id: number, name: string,checked:number }> = [];
   public states: Array<String>=[];
   list: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
     private taskServiceProvider: TaskServiceProvider,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController) {
     this.list = navParams.get('item');
     this.states=['Uncompleted','Completed','Suspended']
   }
@@ -116,7 +118,29 @@ export class MyTasksPage {
     let userId=JSON.parse(localStorage.getItem("user"))["id"];
     let stateIdInDb=this.states.indexOf(state)+1 // al id se le suma 1 porque los ids de la base de datos comienzan en 1
     this.taskServiceProvider.sendNewState(userId,task.id,stateIdInDb).subscribe(
-      data=>{alert(JSON.stringify(data))},
+      data=>{
+              console.log("response for state change:\n"+JSON.stringify(data))
+              let message="";
+              if(data.user_id==userId && 
+                data.task_id==task.id &&
+                data.state_id==stateIdInDb){
+                 message='Estado cambiado satisfactoriamente'
+                }else{
+                  message='App Crash, Inconsistencia de datos enviando estado'
+                }
+
+                let toast = this.toastCtrl.create({
+                  message: message,
+                  duration: 3000,
+                  position: 'bottom'
+                });
+              
+                toast.onDidDismiss(() => {
+                  console.log('Dismissed toast');
+                });
+              
+                toast.present();
+            },
       error=>{
         alert(JSON.stringify(error))
       }
