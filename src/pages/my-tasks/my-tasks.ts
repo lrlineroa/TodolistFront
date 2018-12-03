@@ -32,6 +32,16 @@ export class MyTasksPage {
       (data) => {
         console.log("tareas " + JSON.stringify(data));
         for (let i in data) {
+          let task= data[i];
+          let statesLength=task.states.length
+          if(statesLength==0){
+            task.checked=0
+          }else{
+            let lastState=task.states[statesLength-1]
+            if(lastState.state=="Completed"){
+              task.checked=1
+            }
+          }
           this.items.push(data[i]);
         }
       }
