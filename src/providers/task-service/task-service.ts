@@ -91,7 +91,7 @@ export class TaskServiceProvider {
 
     let json = JSON.stringify({});
     console.log(json);
-    return this.http.post(this.apiUrl + "users/" + userId+ "/" +"tasks/" + taskId+"states/" + stateId, json, options);
+    return this.http.post(this.apiUrl + "users/" + userId+ "/" +"tasks/" + taskId+"/states/" + stateId, json, options);
 
   }
 

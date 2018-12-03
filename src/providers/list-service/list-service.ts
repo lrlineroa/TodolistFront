@@ -15,6 +15,7 @@ export class ListServiceProvider {
   constructor(public http: HttpClient) {
     console.log('Hello ListServiceProvider Provider');
     this.userId=JSON.parse(localStorage.getItem("user"))["id"];
+    console.log('userId: '+this.userId);
   }
   
   getData(uri) {
