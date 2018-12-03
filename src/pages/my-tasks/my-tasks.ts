@@ -116,9 +116,9 @@ export class MyTasksPage {
     let userId=JSON.parse(localStorage.getItem("user"))["id"];
     let stateIdInDb=this.states.indexOf(state)+1 // al id se le suma 1 porque los ids de la base de datos comienzan en 1
     this.taskServiceProvider.sendNewState(userId,task.id,stateIdInDb).subscribe(
-      data=>{alert(data)},
+      data=>{alert(JSON.stringify(data))},
       error=>{
-        alert(error)
+        alert(JSON.stringify(error))
       }
       );
   }
