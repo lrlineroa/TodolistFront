@@ -93,8 +93,14 @@ export class SearchUsersPage {
     toast.present();
   }
   updateUserGrants(user: any,data:any): any {
-    user.canEdit=data.can_edit
-    user.canView=data.visible
+    console.log("datos \n"+ JSON.stringify(data));
+    if(data.user_id==user.id){
+      user.canEdit=data.can_edit
+      user.canView=data.visible
+    }else{
+      this.toast("No hubo Cambios");
+    }
+    
   }
   canEditThisList(user){
     // item.canEdit=!item.canEdit
@@ -105,6 +111,7 @@ export class SearchUsersPage {
         this.toast("Se Actualizaron los permisos")
       },
       error=>{
+        console.log("error \n"+JSON.stringify(error))
         this.showError(error)
       }
     );

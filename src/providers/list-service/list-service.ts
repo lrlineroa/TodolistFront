@@ -84,7 +84,7 @@ export class ListServiceProvider {
   //type is view or edit
   grant(guestId: any, listId: any, type: string, value: boolean): any {
     let url=this.apiUrl+"users/"+
-    this.userId+"/lists/"+listId+"/guest/"+guestId+"/"+type+"/"+value
+    this.userId+"/lists/"+listId+"/guest/"+guestId+"/"+type+"/"+(value?1:0)
     let headers = new HttpHeaders(
       {
         'Content-Type': 'application/json'
