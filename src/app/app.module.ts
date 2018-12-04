@@ -18,6 +18,8 @@ import { HttpClientModule  } from "@angular/common/http";
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ListServiceProvider } from '../providers/list-service/list-service';
 import { TaskServiceProvider } from '../providers/task-service/task-service';
+import { SearchUsersPage } from '../pages/search-users/search-users';
+import { UserServiceProvider } from '../providers/user-service/user-service';
 @NgModule({
   declarations: [
     MyApp,LoginPage,
@@ -25,7 +27,7 @@ SignUpPage,
 MyListsPage,
 MyTasksPage,
     HomePage,
-    ListPage
+    ListPage,SearchUsersPage
   ],
   imports: [
     BrowserModule,HttpClientModule,
@@ -38,7 +40,7 @@ SignUpPage,
 MyListsPage,
 MyTasksPage,
     HomePage,
-    ListPage
+    ListPage,SearchUsersPage
   ],
   providers: [
     StatusBar,
@@ -47,7 +49,8 @@ MyTasksPage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     ListServiceProvider,
-    TaskServiceProvider
+    TaskServiceProvider,
+    UserServiceProvider
   ]
 })
 export class AppModule {}

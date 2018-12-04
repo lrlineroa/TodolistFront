@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class ListServiceProvider {
+  
    userId:number;
    jwt=localStorage.getItem("jwt");
    apiUrl=localStorage.getItem("apiUrl");
@@ -79,6 +80,21 @@ export class ListServiceProvider {
     const options = { headers: headers };
         
     return this.http.delete(this.apiUrl+"users/"+this.userId+"/" + uri,options);
+  }
+  //type is view or edit
+  grant(guestId: any, listId: any, type: string, value: boolean): any {
+    let url=this.apiUrl+"users/"+
+    this.userId+"/lists/"+listId+"/guest/"+guestId+"/"+type+"/"+value
+    let headers = new HttpHeaders(
+      {
+        'Content-Type': 'application/json'
+        ,
+        'Authorization':'Bearer '+this.jwt
+      });
+      
+    const options = { headers: headers };
+    
+    return this.http.post(url,null,options)
   }
 
 }

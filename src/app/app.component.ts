@@ -77,4 +77,6 @@ export class MyApp {
   public isThereASession():boolean{
       return localStorage.getItem("jwt")!= undefined;
   } 
+
+  
 }
