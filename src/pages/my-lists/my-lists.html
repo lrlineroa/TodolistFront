@@ -5,11 +5,11 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  
+
   <ion-navbar>
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-      </button>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>my_lists</ion-title>
   </ion-navbar>
 
@@ -17,36 +17,47 @@
 
 
 <ion-content>
-    <h2>Mis Listas</h2>
-    <ion-list>
-      <h3 *ngIf="items.length==0" ion-item>:( No tienes Listas Porfis crea una</h3>
-      <ion-grid *ngFor="let item of items">
-        <ion-row>
-          <ion-col col-6> 
-              <button ion-item  (click)="itemTapped($event, item)">
-        
-                  {{item.name}}
-                <ion-icon *ngIf="item.users_lists.length>1" name="people" item-end>
+  <h2>Mis Listas</h2>
+  <ion-list>
+    <h3 *ngIf="items.length==0" ion-item>:( No tienes Listas Porfis crea una</h3>
+    <ion-grid *ngFor="let item of items">
+      <ion-row>
+        <ion-col col-6>
+          <button ion-item (click)="itemTapped($event, item)">
 
-                </ion-icon>
-                </button>
+            {{item.name}}
+            <span *ngIf="item.users_lists.length>1">
+              <ion-icon *ngIf="item.is_own"  name="people" item-end>
 
-          </ion-col>
-          <ion-col>
-              <button ion-button color="secondary" (click)="openConfigurations(item)" clear>
-                <ion-icon name="settings"></ion-icon>
-              </button>
-          </ion-col>
-        </ion-row>
-        
-      </ion-grid>
-      
-      <ion-item>
-          <ion-label stacked>Ingresa Una nueva lista (y presiona enter)</ion-label>
-          <ion-input type="text" #box (keyup.enter)="onEnterList(box.value);box.value=''"></ion-input>
-          
-      </ion-item>
-      
-    </ion-list>
-    
-  </ion-content>
+              </ion-icon>
+              <ion-icon *ngIf="!item.is_own && item.visible"  name="eye" item-end>
+
+              </ion-icon>
+              <ion-icon *ngIf="!item.is_own &&item.editable"  name="create" item-end>
+
+              </ion-icon>
+            </span>
+            
+
+
+          </button>
+
+        </ion-col>
+        <ion-col>
+          <button ion-button color="secondary" (click)="openConfigurations(item)" clear>
+            <ion-icon name="settings"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+    <ion-item>
+      <ion-label stacked>Ingresa Una nueva lista (y presiona enter)</ion-label>
+      <ion-input type="text" #box (keyup.enter)="onEnterList(box.value);box.value=''"></ion-input>
+
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>
