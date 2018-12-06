@@ -19,7 +19,7 @@ export class ListServiceProvider {
     console.log('userId: '+this.userId);
   }
   
-  getData(uri) {
+  getData(uri,listId?) {
     
     let headers = new HttpHeaders(
       {
@@ -29,8 +29,8 @@ export class ListServiceProvider {
       });
       
     const options = { headers: headers };
-        
-    return this.http.get(this.apiUrl+"users/"+this.userId+"/" + uri,options);
+    let id= listId?"/"+listId:""  
+    return this.http.get(this.apiUrl+"users/"+this.userId+"/" + uri+id,options);
   }
 
   postData(data, uri) {

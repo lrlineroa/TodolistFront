@@ -14,7 +14,7 @@ export class UserServiceProvider {
   constructor(public http: HttpClient) {
     console.log('Hello UserServiceProvider Provider');
   }
-  getAllData() {
+  getAllData(SharingListId) {
     
     let headers = new HttpHeaders(
       {
@@ -25,6 +25,6 @@ export class UserServiceProvider {
       
     const options = { headers: headers };
         
-    return this.http.get(this.apiUrl+"users",options);
+    return this.http.get(this.apiUrl+"users/sharing_list/"+SharingListId,options);
   }
 }

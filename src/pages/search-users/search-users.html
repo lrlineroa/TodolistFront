@@ -5,11 +5,16 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Compartir {{list.name}}</ion-title>
-  </ion-navbar>
-
+  <ion-toolbar>
+    <ion-title>
+      Compartiendo {{list.name}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        Cancel
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 

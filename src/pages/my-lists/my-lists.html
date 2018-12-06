@@ -26,7 +26,9 @@
               <button ion-item  (click)="itemTapped($event, item)">
         
                   {{item.name}}
-                  
+                <ion-icon *ngIf="item.users_lists.length>1" name="people" item-end>
+
+                </ion-icon>
                 </button>
 
           </ion-col>

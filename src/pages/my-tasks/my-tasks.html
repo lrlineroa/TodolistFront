@@ -19,7 +19,7 @@
     <ion-grid *ngFor="let item of items">
       <ion-row>
         <ion-col col-6> 
-            <ion-checkbox [(ngModel)]="item.checked" (click)="itemTapped($event, item)"></ion-checkbox>
+            <ion-checkbox *ngIf="list.editable" [(ngModel)]="item.checked" (click)="itemTapped($event, item)"></ion-checkbox>
             <button [ngClass]="{
               'checked': item.checked
             }" ion-item >
@@ -31,14 +31,14 @@
 
         </ion-col>
         <ion-col>
-            <button ion-button color="secondary" (click)="onEditTask(item)" clear>Editar</button>
-            <button ion-button color="danger" (click)="onDeleteTask(item)" clear>Eliminar</button>
+            <button *ngIf="list.editable" ion-button color="secondary" (click)="onEditTask(item)" clear>Editar</button>
+            <button *ngIf="list.editable" ion-button color="danger" (click)="onDeleteTask(item)" clear>Eliminar</button>
         </ion-col>
       </ion-row>
       
     </ion-grid>
     
-    <ion-item>
+    <ion-item *ngIf="list.editable">
         <ion-label stacked>Ingresa Una nueva Tarea (y presiona enter)</ion-label>
         <ion-input type="text" #box (keyup.enter)="onEnterTask(box.value);box.value=''"></ion-input>
         
