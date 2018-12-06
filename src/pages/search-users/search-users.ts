@@ -19,6 +19,7 @@ export class SearchUsersPage {
   items: any[] = [];
   users: any[] = [];
   loggedInUserEmail: any;
+  userId: any;
   constructor(
     public navCtrl: NavController,
     private toastCtrl: ToastController,
@@ -30,6 +31,7 @@ export class SearchUsersPage {
     this.list = navParams.get('list');
     this.initializeUsers();
     this.loggedInUserEmail = JSON.parse(localStorage.getItem("user"))["email"];
+    this.userId=JSON.parse(localStorage.getItem("user"))["id"];
   }
 
   ionViewDidLoad() {
@@ -124,7 +126,7 @@ export class SearchUsersPage {
           handler: data => {
             // item.canView=!item.canView;
             //vamos a darle permiso al usuario
-            this.listServiceProvider.grant(user.id, this.list.id, "visible", !user.canView).subscribe(
+            this.listServiceProvider.grant(this.userId,user.id, this.list.id, "visible", !user.canView).subscribe(
               data => {
                 this.updateUserGrants(user, data);
                 this.toast("Se Actualizaron los permisos")
@@ -206,7 +208,7 @@ export class SearchUsersPage {
           handler: data => {
             // item.canView=!item.canView;
             //vamos a darle permiso al usuario
-            this.listServiceProvider.grant(user.id, this.list.id, "can_edit", !user.canEdit).subscribe(
+            this.listServiceProvider.grant(this.userId,user.id, this.list.id, "can_edit", !user.canEdit).subscribe(
               data => {
                 this.updateUserGrants(user, data);
                 this.toast("Se Actualizaron los permisos")

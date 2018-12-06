@@ -59,6 +59,8 @@ export class LoginPage {
 		this.authServiceProvider.postData(userData, "user_token")
 			.subscribe(
 				data => {
+					console.log("respuesta login")
+					console.dir(data);
 					localStorage.setItem('user', JSON.stringify(data["user"]));
 					localStorage.setItem('jwt', data["jwt"]);
 					this.showNotification(data); 

@@ -35,11 +35,11 @@ export class MyListsPage {
     
   }
   initializeLists(){
-    this.listServiceProvider.getData('lists').subscribe(
+    this.listServiceProvider.getData('lists',this.userId).subscribe(
       (data) => {
-        console.log("listas " ); console.dir(data)
+        // console.log("listas " ); console.dir(data)
         for (let i in data) {
-          console.dir(data[i])
+          // console.dir(data[i])
           data[i].users_lists.forEach(element => {
             if(element.user_id==this.userId){
               data[i].is_own=element.is_owner
@@ -53,10 +53,11 @@ export class MyListsPage {
       ,
       (error) => { this.showError(error) }
     );
+    //provider.unsubscribe();
   }
 
   showError(error) {
-    console.log(error)
+    // console.log(error)
     this.alertCtrl.create({
       title: "Oppps",
       subTitle: "hubo un error con las listas",
@@ -72,7 +73,7 @@ export class MyListsPage {
   }
 
   onEnterList(value) {
-    this.listServiceProvider.postData({ name: value }, "lists").subscribe(
+    this.listServiceProvider.postData({ name: value },this.userId, "lists").subscribe(
       list => this.items.push({ id: list["id"], name: list["name"] }),
       err => this.showError(err)
     );
@@ -99,7 +100,7 @@ export class MyListsPage {
         {
           text: 'Aceptar',
           handler: data => {
-            this.listServiceProvider.putData({ name: data.name }, "lists/" + item["id"]).subscribe(
+            this.listServiceProvider.putData({ name: data.name },this.userId, "lists/" + item["id"]).subscribe(
               (data) => { 
                 let index= this.items.indexOf(item)
                 this.items[index]={id:data["id"],name:data["name"]};
@@ -127,7 +128,7 @@ export class MyListsPage {
           text: 'Si',
           handler: data => {
             let id = item["id"];
-            this.listServiceProvider.deleteData("lists/" + id).subscribe(() => this.items.splice(this.items.indexOf(item), 1));
+            this.listServiceProvider.deleteData("lists/" + id,this.userId).subscribe(() => this.items.splice(this.items.indexOf(item), 1));
             }
         }
       ]

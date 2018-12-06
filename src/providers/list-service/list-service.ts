@@ -10,16 +10,17 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ListServiceProvider {
   
-   userId:number;
+   
    jwt=localStorage.getItem("jwt");
    apiUrl=localStorage.getItem("apiUrl");
   constructor(public http: HttpClient) {
     console.log('Hello ListServiceProvider Provider');
-    this.userId=JSON.parse(localStorage.getItem("user"))["id"];
-    console.log('userId: '+this.userId);
+    
+    
+
   }
   
-  getData(uri,listId?) {
+  getData(uri,userId:number,listId?) {
     
     let headers = new HttpHeaders(
       {
@@ -30,10 +31,10 @@ export class ListServiceProvider {
       
     const options = { headers: headers };
     let id= listId?"/"+listId:""  
-    return this.http.get(this.apiUrl+"users/"+this.userId+"/" + uri+id,options);
+    return this.http.get(this.apiUrl+"users/"+userId+"/" + uri+id,options);
   }
 
-  postData(data, uri) {
+  postData(data,userId:number, uri) {
     
     let headers = new HttpHeaders(
       {
@@ -45,11 +46,10 @@ export class ListServiceProvider {
     const options = { headers: headers };
       
     let json = JSON.stringify(data);
-    console.log(json);
-    return this.http.post(this.apiUrl+"users/"+this.userId+"/" + uri, json, options);
+    return this.http.post(this.apiUrl+"users/"+userId+"/" + uri, json, options);
   }
 
-  putData(data, uri) {
+  putData(data,userId:number, uri) {
     
     let headers = new HttpHeaders(
       {
@@ -61,13 +61,12 @@ export class ListServiceProvider {
     const options = { headers: headers };
       
     let json = JSON.stringify(data);
-    console.log(json);
     
-    return this.http.put(this.apiUrl+"users/"+this.userId+"/" + uri, json, options);
+    return this.http.put(this.apiUrl+"users/"+userId+"/" + uri, json, options);
   }
 
 
-  deleteData(uri: string): any {
+  deleteData(uri: string,userId:number): any {
     console.log("ELIMINARRRRRRRR");
     
     let headers = new HttpHeaders(
@@ -79,12 +78,12 @@ export class ListServiceProvider {
       
     const options = { headers: headers };
         
-    return this.http.delete(this.apiUrl+"users/"+this.userId+"/" + uri,options);
+    return this.http.delete(this.apiUrl+"users/"+userId+"/" + uri,options);
   }
   //type is view or edit
-  grant(guestId: any, listId: any, type: string, value: boolean): any {
+  grant(ownerId:number,guestId: number, listId: number, type: string, value: boolean): any {
     let url=this.apiUrl+"users/"+
-    this.userId+"/lists/"+listId+"/guest/"+guestId+"/"+type+"/"+(value?1:0)
+    ownerId+"/lists/"+listId+"/guest/"+guestId+"/"+type+"/"+(value?1:0)
     let headers = new HttpHeaders(
       {
         'Content-Type': 'application/json'
